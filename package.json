@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha",
+    "test": "DEBUG=store-api mocha",
     "coverage": "nyc --reporter=lcov mocha"
   },
   "keywords": [],
@@ -21,5 +22,8 @@
     "nyc": "^15.1.0",
     "standard": "^16.0.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "debug": "^4.3.1",
+    "stardog": "^3.1.0"
+  }
 }
