@@ -1,24 +1,24 @@
 import fs from 'fs'
 import { describe, it } from 'mocha'
 import { assert } from 'chai'
-import { Stardog } from '../lib/stardog.js'
+import { Fuseki } from '../lib/fuseki.js'
 
 const randomName = () => `db_${Math.round(Math.random() * 100000000).toString(16)}`
 
-describe('stardog', function () {
+describe('fuseki', function () {
   this.timeout(Infinity)
 
   it('should create and drop DB', async () => {
-    const db = new Stardog()
+    const db = new Fuseki()
     const dbname = randomName()
     const create = await db.createDb(dbname)
     const drop = await db.dropDb(dbname)
-    assert.ok(create.startsWith('Successfully created database'))
-    assert.ok(drop.includes('was successfully dropped'))
+    assert.strictEqual(create, true)
+    assert.strictEqual(drop, true)
   })
 
   it('should clear', async () => {
-    const db = new Stardog()
+    const db = new Fuseki()
     const dbname = randomName()
     const create = await db.createDb(dbname)
     const insert = await db.update(dbname, fs.readFileSync('./fixtures/insert.rq').toString())
@@ -28,16 +28,16 @@ describe('stardog', function () {
     const count2 = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
     const drop = await db.dropDb(dbname)
 
-    assert.ok(create.startsWith('Successfully created database'))
+    assert.strictEqual(create, true)
     assert.deepStrictEqual(insert, true)
     assert.ok(inserted > 0)
-    assert.deepStrictEqual(clear, { added: 0, removed: inserted })
+    assert.deepStrictEqual(clear, true)
     assert.strictEqual(Number(count2.results.bindings[0].tot.value), 0)
-    assert.ok(drop.includes('was successfully dropped'))
+    assert.strictEqual(drop, true)
   })
 
   it('should import', async () => {
-    const db = new Stardog()
+    const db = new Fuseki()
     const dbname = randomName()
     const create = await db.createDb(dbname)
 
@@ -50,11 +50,11 @@ describe('stardog', function () {
     const count2 = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
     const drop = await db.dropDb(dbname)
 
-    assert.ok(create.startsWith('Successfully created database'))
-    assert.deepStrictEqual(insert, { added: inserted, removed: 0 })
+    assert.strictEqual(create, true)
+    assert.deepStrictEqual(insert, true)
     assert.ok(inserted > 0)
-    assert.deepStrictEqual(clear, { added: 0, removed: inserted })
+    assert.deepStrictEqual(clear, true)
     assert.strictEqual(Number(count2.results.bindings[0].tot.value), 0)
-    assert.ok(drop.includes('was successfully dropped'))
+    assert.strictEqual(drop, true)
   })
 })

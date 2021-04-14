@@ -1,0 +1,13 @@
+version: '2'
+services:
+  # https://hub.docker.com/r/ontotext/graphdb/
+  # https://graphdb.ontotext.com/documentation/standard/quick-start-guide.html
+  graphdb:
+    image: ontotext/graphdb:9.7.0-ee
+    ports:
+      - "7200:7200"
+    volumes:
+      - /opt/docker/graphdb:/opt/graphdb/home
+    command: "-Dgraphdb.global.page.cache=true"
+    environment:
+      GDB_HEAP_SIZE: 60g

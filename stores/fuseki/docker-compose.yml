@@ -1,0 +1,11 @@
+version: '2'
+services:
+  # https://hub.docker.com/r/stain/jena-fuseki
+  fuseki:
+    image: stain/jena-fuseki:3.14.0
+    ports:
+      - "3030:3030"
+    volumes:
+      - ./data:/fuseki
+    environment:
+      ADMIN_PASSWORD: admin
