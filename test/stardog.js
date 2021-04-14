@@ -37,19 +37,13 @@ describe('stardog', function () {
     assert.ok(drop.includes('was successfully dropped'))
   })
 
-  it('should chunk and insert a large dataset', async () => {
+  it('should import', async () => {
     const db = new Stardog()
     const dbname = randomName()
     const create = await db.createDb(dbname)
 
     const buffer = fs.readFileSync('./fixtures/triples.nt')
-    const mapper = (chunk) => `
-    PREFIX dc: <http://purl.org/dc/elements/1.1/>
-    INSERT DATA {
-      ${chunk}
-    }`
-    const queries = chunkBetween(buffer, mapper, 5)
-    const insert = await db.queries(dbname, queries)
+    const insert = await db.import(dbname, buffer)
 
     const count = await db.query(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
     const inserted = Number(count.results.bindings[0].tot.value)
