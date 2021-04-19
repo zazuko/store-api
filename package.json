@@ -7,6 +7,9 @@
   "scripts": {
     "lint": "eslint .",
     "test": "DEBUG=store-api mocha",
+    "test:fuseki": "mocha ./test/fuseki.js",
+    "test:graphdb": "mocha ./test/graphdb.js",
+    "test:stardog": "mocha ./test/stardog.js",
     "coverage": "nyc --reporter=lcov mocha"
   },
   "keywords": [],
