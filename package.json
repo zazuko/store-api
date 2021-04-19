@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "debug": "^4.3.1",
+    "graphdb": "^2.0.0",
     "node-fetch": "^2.6.1",
     "stardog": "^3.1.0"
   }

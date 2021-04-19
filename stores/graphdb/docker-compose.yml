@@ -7,7 +7,4 @@ services:
     ports:
       - "7200:7200"
     volumes:
-      - /opt/docker/graphdb:/opt/graphdb/home
-    command: "-Dgraphdb.global.page.cache=true"
-    environment:
-      GDB_HEAP_SIZE: 60g
+      - ./data:/opt/graphdb/home

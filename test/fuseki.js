@@ -57,4 +57,34 @@ describe('fuseki', function () {
     assert.strictEqual(Number(count2.results.bindings[0].tot.value), 0)
     assert.strictEqual(drop, true)
   })
+
+  it('should on-offline', async () => {
+    const db = new Fuseki()
+    const dbname = randomName()
+    await db.createDb(dbname)
+
+    let error
+    const buffer = fs.readFileSync('./fixtures/triples.nt')
+
+    await db.offline(dbname)
+    try {
+      await db.import(dbname, buffer)
+    }
+    catch (err) {
+      error = err
+    }
+    assert.ok(typeof error !== 'undefined')
+
+    error = undefined
+    await db.online(dbname)
+    try {
+      await db.import(dbname, buffer)
+    }
+    catch (err) {
+      error = err
+    }
+    assert.ok(typeof error === 'undefined')
+
+    await db.dropDb(dbname)
+  })
 })
