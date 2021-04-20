@@ -57,6 +57,40 @@ await db.clearDb(dbname)
 await db.dropDb(dbname)
 ```
 
+## Store Specific
+
+### User Management & Permissions
+
+#### Fuseki
+
+Not supported
+
+#### GraphDB
+
+Documentation: https://ontotext-ad.github.io/graphdb.js/GraphDBServerClient.html
+
+```js
+import { GraphDB } from 'store-api'
+
+const db = new GraphDB({ user: '…', password: '…', endpoint: 'http://…' })
+
+db.conn.getUser(username)
+```
+
+#### Stardog
+
+Documentation: https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#user
+
+```js
+import { Stardog } from 'store-api'
+import stardogLib from 'stardog'
+const { user } = stardogLib
+
+const db = new Stardog({ user: '…', password: '…', endpoint: 'http://…' })
+
+user.get(db.conn, username, params)
+```
+
 [graphdb]: https://www.ontotext.com/products/graphdb/
 [fuseki]: https://jena.apache.org/documentation/fuseki2/
 [stardog]: https://www.stardog.com/
