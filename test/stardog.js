@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { describe, it } from 'mocha'
 import { assert } from 'chai'
-import { Stardog } from '../lib/stardog.js'
+import { Stardog } from '../lib/index.js'
 
 const randomName = () => `db_${Math.round(Math.random() * 359999964).toString(36)}`
 
@@ -10,7 +10,7 @@ describe('stardog', function () {
 
   describe('database', function () {
     it('should create and drop DB', async () => {
-      const db = new Stardog()
+      const db = connect()
       const dbname = randomName()
       const create = await db.createDb(dbname)
       const drop = await db.dropDb(dbname)
@@ -19,7 +19,7 @@ describe('stardog', function () {
     })
 
     it('should clear', async () => {
-      const db = new Stardog()
+      const db = connect()
       const dbname = randomName()
       const create = await db.createDb(dbname)
       const insert = await db.update(dbname, fs.readFileSync('./fixtures/insert.rq').toString())
@@ -38,7 +38,7 @@ describe('stardog', function () {
     })
 
     it('should import', async () => {
-      const db = new Stardog()
+      const db = connect()
       const dbname = randomName()
       const create = await db.createDb(dbname)
 
@@ -60,7 +60,7 @@ describe('stardog', function () {
     })
 
     it('should on-offline', async () => {
-      const db = new Stardog()
+      const db = connect()
       const dbname = randomName()
       await db.createDb(dbname)
 
@@ -93,7 +93,7 @@ describe('stardog', function () {
   describe('queries', function () {
     beforeEach(async function () {
       this.dbname = randomName()
-      this.db = new Stardog()
+      this.db = connect()
       await this.db.createDb(this.dbname)
       await this.db.update(this.dbname, fs.readFileSync('./fixtures/insert.rq').toString())
     })
@@ -127,3 +127,14 @@ describe('stardog', function () {
     })
   })
 })
+
+function connect () {
+  const options = {}
+  if (process.env.STARDOG_PASSWORD) {
+    options.user = process.env.STARDOG_USER
+    options.password = process.env.STARDOG_PASSWORD
+    options.endpoint = process.env.STARDOG_ENDPOINT
+  }
+  const db = new Stardog(options)
+  return db
+}

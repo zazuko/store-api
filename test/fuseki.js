@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { describe, it } from 'mocha'
 import { assert } from 'chai'
-import { Fuseki } from '../lib/fuseki.js'
+import { Fuseki } from '../lib/index.js'
 
 const randomName = () => `db_${Math.round(Math.random() * 359999964).toString(36)}`
 

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { describe, it } from 'mocha'
 import { assert } from 'chai'
-import { GraphDB } from '../lib/graphdb.js'
+import { GraphDB } from '../lib/index.js'
 
 const randomName = () => `db_${Math.round(Math.random() * 359999964).toString(36)}`
 

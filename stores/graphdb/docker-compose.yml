@@ -3,7 +3,7 @@ services:
   # https://hub.docker.com/r/ontotext/graphdb/
   # https://graphdb.ontotext.com/documentation/standard/quick-start-guide.html
   graphdb:
-    image: ontotext/graphdb:9.7.0-ee
+    image: docker-registry.ontotext.com/graphdb-free:9.6.0-adoptopenjdk11
     ports:
       - "7200:7200"
     volumes:

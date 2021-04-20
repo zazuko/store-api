@@ -9,19 +9,39 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 15.x]
+        node-version: [14.x, 15.x]
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Fuseki setup
+      working-directory: ./stores/fuseki
+      run: docker-compose up -d
+    - name: GraphDB setup
+      working-directory: ./stores/graphdb
+      run: docker-compose up -d
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
     - run: npm ci
     - run: npm run lint
-    - run: npm run test
-    # - run: npm run coverage
-    # - name: Coveralls
-    #   uses: coverallsapp/github-action@master
-    #   with:
-    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    - run: npm run test:fuseki
+    - run: npm run test:graphdb
+    - run: npm run test:stardog
+      env:
+        STARDOG_USER: ${{ secrets.STARDOG_USER }}
+        STARDOG_PASSWORD: ${{ secrets.STARDOG_PASSWORD }}
+        STARDOG_ENDPOINT: ${{ secrets.STARDOG_ENDPOINT }}
+
+    - run: npm run coverage
+      env:
+        STARDOG_USER: ${{ secrets.STARDOG_USER }}
+        STARDOG_PASSWORD: ${{ secrets.STARDOG_PASSWORD }}
+        STARDOG_ENDPOINT: ${{ secrets.STARDOG_ENDPOINT }}
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
