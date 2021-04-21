@@ -1,8 +1,8 @@
 {
   "name": "store-api",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A library making it easier to work with different triplestores by providing a unified interface for common admin and user actions.",
+  "main": "lib/index.js",
   "type": "module",
   "scripts": {
     "lint": "eslint .",
@@ -13,7 +13,13 @@
     "coverage": "c8 --reporter=lcov npm run test",
     "doc": "jsdoc -c jsdoc.conf.json"
   },
-  "keywords": [],
+  "keywords": [
+    "RDF",
+    "GraphDB",
+    "Stardog",
+    "Fuseki",
+    "Triplestore"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
