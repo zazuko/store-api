@@ -11,31 +11,36 @@ Supported stores:
 * [Fuseki][fuseki]
 * [Stardog][stardog]
 
+## Documentation
+
+* [GraphDB](https://zazuko.github.io/store-api/GraphDB.html)
+* [Fuseki](https://zazuko.github.io/store-api/Fuseki.html)
+* [Stardog](https://zazuko.github.io/store-api/Stardog.html)
+
 ## Common Interface
 
-```
-async createDb (dbname, options)
-
-async dropDb (dbname, options)
-
-async clearDb (dbname, options)
-
-async online (dbname, options)
-
-async offline (dbname, options)
-
-async ask (dbname, sparql, options)
-
-async construct (dbname, sparql, options)
-
-async describe (dbname, sparql, options)
-
-async select (dbname, sparql, options)
-
-async update (dbname, sparql, options)
-
-async import (dbname, ntriples, graph)
-```
+* `async createDb (dbname, options)`
+  [GraphDB](https://zazuko.github.io/store-api/GraphDB.html#createDb), [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#createDb), [Stardog](https://zazuko.github.io/store-api/Stardog.html#createDb)
+* `async dropDb (dbname, options)`
+  [GraphDB](https://zazuko.github.io/store-api/GraphDB.html#dropDb), [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#dropDb), [Stardog](https://zazuko.github.io/store-api/Stardog.html#dropDb)
+* `async clearDb (dbname, options)`
+  [GraphDB](https://zazuko.github.io/store-api/GraphDB.html#clearDb), [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#clearDb), [Stardog](https://zazuko.github.io/store-api/Stardog.html#clearDb)
+* `async online (dbname, options)`
+  [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#online), [Stardog](https://zazuko.github.io/store-api/Stardog.html#online)
+* `async offline (dbname, options)`
+  [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#offline), [Stardog](https://zazuko.github.io/store-api/Stardog.html#offline)
+* `async ask (dbname, sparql, options)`
+  [GraphDB](https://zazuko.github.io/store-api/GraphDB.html#ask), [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#ask), [Stardog](https://zazuko.github.io/store-api/Stardog.html#ask)
+* `async construct (dbname, sparql, options)`
+  [GraphDB](https://zazuko.github.io/store-api/GraphDB.html#construct), [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#construct), [Stardog](https://zazuko.github.io/store-api/Stardog.html#construct)
+* `async describe (dbname, sparql, options)`
+  [GraphDB](https://zazuko.github.io/store-api/GraphDB.html#describe), [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#describe), [Stardog](https://zazuko.github.io/store-api/Stardog.html#describe)
+* `async select (dbname, sparql, options)`
+  [GraphDB](https://zazuko.github.io/store-api/GraphDB.html#select), [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#select), [Stardog](https://zazuko.github.io/store-api/Stardog.html#select)
+* `async update (dbname, sparql, options)`
+  [GraphDB](https://zazuko.github.io/store-api/GraphDB.html#update), [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#update), [Stardog](https://zazuko.github.io/store-api/Stardog.html#update)
+* `async import (dbname, ntriples, graph)`
+  [GraphDB](https://zazuko.github.io/store-api/GraphDB.html#import), [Fuseki](https://zazuko.github.io/store-api/Fuseki.html#import), [Stardog](https://zazuko.github.io/store-api/Stardog.html#import)
 
 ## Usage
 
@@ -56,6 +61,8 @@ console.log({ inserted })
 await db.clearDb(dbname)
 await db.dropDb(dbname)
 ```
+
+The [tests](./test) create, drop, clear DBs, import data and query data, they can also be used as usage reference.
 
 ## Store Specific
 

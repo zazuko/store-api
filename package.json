@@ -10,7 +10,8 @@
     "test:fuseki": "mocha ./test/fuseki.js",
     "test:graphdb": "mocha ./test/graphdb.js",
     "test:stardog": "mocha ./test/stardog.js",
-    "coverage": "c8 --reporter=lcov npm run test"
+    "coverage": "c8 --reporter=lcov npm run test",
+    "doc": "jsdoc -c jsdoc.conf.json"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "coveralls": "^3.0.11",
     "deep-equal": "^2.0.5",
     "eslint": "^7.19.0",
+    "jsdoc": "^3.6.6",
     "mocha": "^8.2.1",
     "standard": "^16.0.3"
   },

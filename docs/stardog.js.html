@@ -1,4 +1,32 @@
-import stardog from 'stardog'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: stardog.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: stardog.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import stardog from 'stardog'
 import { Store } from './store.js'
 import { chunkBetween } from './utils.js'
 const { Connection, db, query } = stardog
@@ -29,7 +57,7 @@ export class Stardog extends Store {
   /**
    * Creates a database
    *
-   * <https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#dbcreateconn-database-databaseoptions-options-params>
+   * &lt;https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#dbcreateconn-database-databaseoptions-options-params>
    *
    * @async
    * @param {string} dbname
@@ -49,7 +77,7 @@ export class Stardog extends Store {
   /**
    * Deletes a database
    *
-   * <https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#dbdropconn-database-params>
+   * &lt;https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#dbdropconn-database-params>
    *
    * @async
    * @param {string} dbname
@@ -67,7 +95,7 @@ export class Stardog extends Store {
   /**
    * Empties a database
    *
-   * <https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#dbdropconn-database-params>
+   * &lt;https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#dbdropconn-database-params>
    *
    * @async
    * @param {string} dbname
@@ -85,7 +113,7 @@ export class Stardog extends Store {
   /**
    * Brings an offline database back online so that it can accept connections.
    *
-   * <https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#dbonlineconn-database-params>
+   * &lt;https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#dbonlineconn-database-params>
    *
    * @async
    * @param {string} dbname
@@ -103,7 +131,7 @@ export class Stardog extends Store {
   /**
    * Brings an online database offline.
    *
-   * <https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#dbofflineconn-database-params>
+   * &lt;https://github.com/stardog-union/stardog.js/tree/065edf84d92f50dc6ad9a6548d0bc9b16325cd3d#dbofflineconn-database-params>
    *
    * @async
    * @param {string} dbname
@@ -185,7 +213,7 @@ export class Stardog extends Store {
   /**
    * Issues a SPARQL UPDATE query
    *
-   * <https://github.com/stardog-union/stardog.js/#queryexecuteconn-database-query-accept-params-additionalhandlers>
+   * &lt;https://github.com/stardog-union/stardog.js/#queryexecuteconn-database-query-accept-params-additionalhandlers>
    * @async
    * @param {string} dbname
    * @param {string} sparql query
@@ -202,7 +230,7 @@ export class Stardog extends Store {
   /**
    * Issues many SPARQL queries in a transaction
    *
-   * <https://github.com/stardog-union/stardog.js/#queryexecuteconn-database-query-accept-params-additionalhandlers>
+   * &lt;https://github.com/stardog-union/stardog.js/#queryexecuteconn-database-query-accept-params-additionalhandlers>
    * @async
    * @param {string} dbname
    * @param {string[]} sparqlQueries queries
@@ -217,7 +245,7 @@ export class Stardog extends Store {
 
     const tx = new Transaction(this.conn, dbname, options.params)
 
-    for (let i = 0; i < sparqlQueries.length; i++) {
+    for (let i = 0; i &lt; sparqlQueries.length; i++) {
       const chunk = sparqlQueries[i]
       const result = await tx.add((transactionId) => query.executeInTransaction(this.conn, dbname, transactionId, chunk, options.options, options.params))
       if (!result.ok) {
@@ -239,7 +267,7 @@ export class Stardog extends Store {
    */
   async import (dbname, ntriples, graph) {
     const mapper = graph
-      ? (chunk) => `INSERT DATA { GRAPH <${graph}> { ${chunk} } }`
+      ? (chunk) => `INSERT DATA { GRAPH &lt;${graph}> { ${chunk} } }`
       : (chunk) => `INSERT DATA { ${chunk} }`
 
     const queries = chunkBetween(ntriples, mapper, 1_000)
@@ -266,7 +294,7 @@ export class Stardog extends Store {
         return result.body.message
       }
 
-      if (typeof result.body !== 'undefined' && result.body !== null) {
+      if (typeof result.body !== 'undefined' &amp;&amp; result.body !== null) {
         return result.body
       }
 
@@ -307,3 +335,26 @@ class Transaction {
     this.tx = response.transactionId
   }
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Fuseki.html">Fuseki</a></li><li><a href="GraphDB.html">GraphDB</a></li><li><a href="Stardog.html">Stardog</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chunkBetween">chunkBetween</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Apr 21 2021 16:42:49 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
