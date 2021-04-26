@@ -305,7 +305,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line16">line 16</a>
+        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -623,7 +623,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line87">line 87</a>
+        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line89">line 89</a>
     </li></ul></dd>
     
 
@@ -1040,7 +1040,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line101">line 101</a>
+        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line103">line 103</a>
     </li></ul></dd>
     
 
@@ -1457,7 +1457,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line115">line 115</a>
+        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line117">line 117</a>
     </li></ul></dd>
     
 
@@ -1808,7 +1808,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line166">line 166</a>
+        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line168">line 168</a>
     </li></ul></dd>
     
 
@@ -2088,7 +2088,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line129">line 129</a>
+        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -2113,6 +2113,522 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="sparqlClientFor"><span class="type-signature"></span>sparqlClientFor<span class="signature">(dbname, options)</span><span class="type-signature"> &rarr; {SparqlHttpClient}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Creates a <a href="https://zazuko.github.io/sparql-http-client/">SPARQL HTTP Client</a> for a database</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dbname</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>headers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HeadersInit</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>HTTP headers to send with every endpoint request</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>user</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    username set when instantiating the store
+                
+                </td>
+            
+
+            <td class="description last"><p>user used for basic authentication</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    password set when instantiating the store
+                
+                </td>
+            
+
+            <td class="description last"><p>password used for basic authentication</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endpointUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    URL generated based on the store endpoint
+                
+                </td>
+            
+
+            <td class="description last"><p>SPARQL Query endpoint URL</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>updateUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    URL generated based on the store endpoint
+                
+                </td>
+            
+
+            <td class="description last"><p>SPARQL Update endpoint URL</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storeUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Graph Store URL</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fetch</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">fetch</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    nodeify-fetch
+                
+                </td>
+            
+
+            <td class="description last"><p>fetch implementation</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>factory</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">factory</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    uses @rdfjs/data-model by default
+                
+                </td>
+            
+
+            <td class="description last"><p>RDF/JS DataFactory</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line195">line 195</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">SparqlHttpClient</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -2446,7 +2962,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line145">line 145</a>
+        <a href="graphdb.js.html">graphdb.js</a>, <a href="graphdb.js.html#line147">line 147</a>
     </li></ul></dd>
     
 
@@ -2498,7 +3014,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Apr 21 2021 16:42:49 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Apr 26 2021 14:07:05 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

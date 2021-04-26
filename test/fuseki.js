@@ -137,4 +137,24 @@ describe('fuseki', function () {
       assert.deepStrictEqual(result.results.bindings, [{ o: { type: 'literal', value: 'A.N. Other' } }], 'select returned unexpected data')
     })
   })
+
+  describe('sparql http client', function () {
+    beforeEach(async function () {
+      this.dbname = randomName()
+      this.db = new Fuseki()
+      await this.db.createDb(this.dbname)
+      const buffer = fs.readFileSync('./fixtures/triples.nt')
+      await this.db.import(this.dbname, buffer, 'http://example.graph')
+      this.client = this.db.sparqlClientFor(this.dbname)
+    })
+
+    afterEach(async function () {
+      await this.db.dropDb(this.dbname)
+    })
+
+    it('query', async function () {
+      const result = await this.client.query.ask('ask { graph <http://example.graph> { <http://example/book9> ?p "book 9"} }')
+      assert.strictEqual(result, true)
+    })
+  })
 })
