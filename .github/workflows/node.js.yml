@@ -28,13 +28,13 @@ jobs:
 
     - run: npm ci
     - run: npm run lint
-    - run: npm run test:fuseki
-    - run: npm run test:graphdb
     - run: npm run test:stardog
       env:
         STARDOG_USER: ${{ secrets.STARDOG_USER }}
         STARDOG_PASSWORD: ${{ secrets.STARDOG_PASSWORD }}
         STARDOG_ENDPOINT: ${{ secrets.STARDOG_ENDPOINT }}
+    - run: npm run test:fuseki
+    - run: npm run test:graphdb
 
     - run: npm run coverage
       env:

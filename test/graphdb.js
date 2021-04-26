@@ -1,4 +1,5 @@
 import fs from 'fs'
+import getStream from 'get-stream'
 import { describe, it } from 'mocha'
 import { assert } from 'chai'
 import { GraphDB } from '../lib/index.js'
@@ -22,23 +23,26 @@ describe('GraphDB', function () {
       const db = new GraphDB()
       const dbname = randomName()
       const create = await db.createDb(dbname)
+
+      const count1 = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
+      const triples1 = Number(count1[0].tot.id.match(/"(\d+)"/)[1])
+
       const insert = await db.update(dbname, fs.readFileSync('./fixtures/insert.rq').toString())
-      const count = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
-      const inserted = Number(count[0].tot.id.match(/"(\d+)"/)[1])
+      const count2 = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
+      const triples2 = Number(count2[0].tot.id.match(/"(\d+)"/)[1]) - triples1
 
       const clear = await db.clearDb(dbname)
 
-      setTimeout(async () => {
-        const count2 = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
-        const drop = await db.dropDb(dbname)
+      const count3 = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
+      const triples3 = triples1 - Number(count3[0].tot.id.match(/"(\d+)"/)[1])
+      const drop = await db.dropDb(dbname)
 
-        assert.strictEqual(create, true, 'createDb failed')
-        assert.deepStrictEqual(insert, true, 'writing data failed')
-        assert.ok(inserted > 0, 'no data inserted')
-        assert.deepStrictEqual(clear, true, 'clearDb failed')
-        assert.strictEqual(Number(count2[0].tot.id.match(/"(\d+)"/)[1]), 0, 'some data left after clear')
-        assert.strictEqual(drop, true, 'dropDb failed')
-      }, 100)
+      assert.strictEqual(create, true, 'createDb failed')
+      assert.deepStrictEqual(insert, true, 'writing data failed')
+      assert.ok(triples2 > 0, 'no data inserted')
+      assert.deepStrictEqual(clear, true, 'clearDb failed')
+      assert.strictEqual(triples3, 0, 'some data left after clear')
+      assert.strictEqual(drop, true, 'dropDb failed')
     })
 
     it('should import', async () => {
@@ -46,25 +50,27 @@ describe('GraphDB', function () {
       const dbname = randomName()
       const create = await db.createDb(dbname)
 
+      const count1 = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
+      const triples1 = Number(count1[0].tot.id.match(/"(\d+)"/)[1])
+
       const buffer = fs.readFileSync('./fixtures/triples.nt')
       const insert = await db.import(dbname, buffer)
 
-      const count = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
-      const inserted = Number(count[0].tot.id.match(/"(\d+)"/)[1])
+      const count2 = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
+      const triples2 = Number(count2[0].tot.id.match(/"(\d+)"/)[1]) - triples1
 
       const clear = await db.clearDb(dbname)
 
-      setTimeout(async () => {
-        const count2 = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
-        const drop = await db.dropDb(dbname)
+      const count3 = await db.select(dbname, 'select (count(*) as ?tot) where { ?s ?p ?o. }')
+      const triples3 = triples1 - Number(count3[0].tot.id.match(/"(\d+)"/)[1])
+      const drop = await db.dropDb(dbname)
 
-        assert.strictEqual(create, true, 'createDb failed')
-        assert.deepStrictEqual(insert, true, 'writing data failed')
-        assert.ok(inserted > 0, 'no data inserted')
-        assert.deepStrictEqual(clear, true, 'clearDb failed')
-        assert.strictEqual(Number(count2[0].tot.id.match(/"(\d+)"/)[1]), 0, 'some data left after clear')
-        assert.strictEqual(drop, true, 'dropDb failed')
-      }, 100)
+      assert.strictEqual(create, true, 'createDb failed')
+      assert.deepStrictEqual(insert, true, 'writing data failed')
+      assert.ok(triples2 > 0, 'no data inserted')
+      assert.deepStrictEqual(clear, true, 'clearDb failed')
+      assert.strictEqual(triples3, 0, 'some data left after clear')
+      assert.strictEqual(drop, true, 'dropDb failed')
     })
   })
 
@@ -133,6 +139,33 @@ describe('GraphDB', function () {
       const result = await this.db.select(this.dbname, 'select ?o where { <http://example/book1> <http://purl.org/dc/elements/1.1/creator> ?o . }')
 
       assert.deepStrictEqual(result, [{ o: { id: '"A.N. Other"' } }], 'select returned unexpected data')
+    })
+  })
+
+  describe('sparql http client', function () {
+    beforeEach(async function () {
+      this.timeout(Infinity)
+      this.dbname = randomName()
+      this.db = new GraphDB()
+      await this.db.createDb(this.dbname)
+      const buffer = fs.readFileSync('./fixtures/triples.nt')
+      await this.db.import(this.dbname, buffer, 'http://example.graph')
+      this.client = this.db.sparqlClientFor(this.dbname)
+    })
+
+    afterEach(async function () {
+      await this.db.dropDb(this.dbname)
+    })
+
+    it('query', async function () {
+      const result = await this.client.query.ask('ask { graph <http://example.graph> { <http://example/book9> ?p "book 9"} }')
+      assert.strictEqual(result, true)
+    })
+
+    it('graph store', async function () {
+      const stream = await this.client.store.get({ value: 'http://example.graph' })
+      const result = await getStream.array(stream)
+      assert.strictEqual(result.length, 20)
     })
   })
 })
